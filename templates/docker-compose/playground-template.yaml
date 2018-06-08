@@ -1,0 +1,17 @@
+version: '2'
+
+networks:
+  composer_network:
+     external: true
+
+services:
+  composer-playground:
+    container_name: composer-playground
+    image: hyperledger/composer-playground:latest
+    ports:
+      - 8080:8080
+    command: pm2-docker composer-playground
+    volumes:
+      - ~/.composer:/home/composer/.composer
+    networks:
+      - composer_network

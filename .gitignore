@@ -1,0 +1,6 @@
+.env
+.idea/*
+/composer
+/test
+/bin
+test.sh
