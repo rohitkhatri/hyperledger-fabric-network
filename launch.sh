@@ -236,9 +236,7 @@ function startComposerRestServer() {
 }
 
 function down() {
-    if [ -e ${GENERATED_DOCKER_COMPOSE_FOLDER}/docker-compose.yaml ]; then
-        ARCH=${ARCH} docker-compose -f "${GENERATED_DOCKER_COMPOSE_FOLDER}/docker-compose.yaml" down
-    fi
+    removeChaincode "${ORG}" "${DOMAIN}"
 
     if [ -e ${GENERATED_DOCKER_COMPOSE_FOLDER}/composer-playground.yaml ]; then
         docker-compose -f "${GENERATED_DOCKER_COMPOSE_FOLDER}/composer-playground.yaml" down
@@ -248,8 +246,11 @@ function down() {
         docker-compose -f "${GENERATED_DOCKER_COMPOSE_FOLDER}/composer-rest-server.yaml" down
     fi
 
+    if [ -e ${GENERATED_DOCKER_COMPOSE_FOLDER}/docker-compose.yaml ]; then
+        ARCH=${ARCH} docker-compose -f "${GENERATED_DOCKER_COMPOSE_FOLDER}/docker-compose.yaml" down
+    fi
+
     removeCard "${PEER_ADMIN}"
-    removeChaincode "${ORG}" "${DOMAIN}"
 }
 
 # Parsing commandline args
